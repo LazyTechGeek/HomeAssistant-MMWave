@@ -62,6 +62,14 @@ actions:
                 - number.YOUR_ZONE_2_OCCUPANCY_DELAY
             data:
               value: "3"
+          - action: notify.notify
+            metadata: {}
+            data:
+              message: Cinema Mode (enabled)
+          - action: notify.alexa_media_YOUR_ALEXA_DEVICE
+            metadata: {}
+            data:
+              message: Cinema mode enabled
       - conditions:
           - condition: state
             entity_id: input_boolean.cinema_mode
@@ -85,6 +93,14 @@ actions:
                 - number.YOUR_ZONE_2_OCCUPANCY_DELAY
             data:
               value: "15"
+          - action: notify.notify
+            metadata: {}
+            data:
+              message: Cinema Mode (disabled)
+          - action: notify.alexa_media_YOUR_ALEXA_DEVICE
+            metadata: {}
+            data:
+              message: Cinema mode disabled
 mode: single
 ```
 
