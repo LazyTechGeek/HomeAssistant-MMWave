@@ -153,4 +153,185 @@ actions:
 mode: single
 ```
 
+### Co2 Sensor Automation (draft)
+```yaml
+alias: Air Quality
+description: ""
+triggers:
+  - trigger: numeric_state
+    entity_id:
+      - sensor.apollo_air_1_4bad34_co2
+    below: 600
+    id: "1"
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  - trigger: numeric_state
+    entity_id:
+      - sensor.apollo_air_1_4bad34_co2
+    above: 600
+    id: "2"
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  - trigger: time
+    at: "08:00:00"
+    id: "20"
+  - trigger: time
+    at: "22:00:00"
+    id: "21"
+conditions: []
+actions:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id:
+              - "1"
+        sequence:
+          - action: light.turn_on
+            metadata: {}
+            data:
+              rgb_color:
+                - 0
+                - 255
+                - 0
+              brightness_pct: 100
+            target:
+              entity_id: light.everything_presence_lite_1_epl_rgb_led
+      - conditions:
+          - condition: trigger
+            id:
+              - "2"
+        sequence:
+          - action: light.turn_on
+            metadata: {}
+            data:
+              rgb_color:
+                - 255
+                - 0
+                - 0
+              brightness_pct: 100
+            target:
+              entity_id: light.everything_presence_lite_1_epl_rgb_led
+          - action: notify.mobile_app_dave_s_s23_mobile
+            metadata: {}
+            data:
+              title: Air Quality
+              message: CO₂ is rising — turn the fan on.
+          - action: notify.alexa_media_dave_s_echo_spot
+            metadata: {}
+            data:
+              message: Dave,  the CO2 levels are rising. Turn on the fan
+          - action: light.turn_on
+            metadata: {}
+            data:
+              rgb_color:
+                - 255
+                - 255
+                - 0
+            target:
+              entity_id:
+                - light.apollo_air_1_4bad34_rgb_light
+                - light.wled_topshelf_4
+                - light.wled_bottom_shelf_5
+      - conditions:
+          - condition: trigger
+            id:
+              - "2"
+          - condition:
+              - condition: time
+                after: "08:00:00"
+                before: "22:00:00"
+        sequence:
+          - action: notify.mobile_app_dave_s_s23_mobile
+            metadata: {}
+            data:
+              title: Air Quality
+              message: CO₂ is high — open a window and get some fresh air
+          - action: notify.alexa_media_dave_s_echo_spot
+            metadata: {}
+            data:
+              message: >-
+                Dave, the air quality is very poor. Open the window to let style
+                fresh air in. 
+          - action: light.turn_on
+            metadata: {}
+            data:
+              rgb_color:
+                - 255
+                - 0
+                - 0
+            target:
+              entity_id:
+                - light.apollo_air_1_4bad34_rgb_light
+                - light.wled_topshelf_4
+                - light.wled_bottom_shelf_5
+      - conditions:
+          - condition: trigger
+            id:
+              - "4"
+          - condition: state
+            entity_id: binary_sensor.dehumidifier_state
+            state: "off"
+        sequence:
+          - choose:
+              - conditions:
+                  - condition: time
+                    after: "07:00:00"
+                    before: "23:00:00"
+                sequence:
+                  - action: notify.mobile_app_dave_s_s23_mobile
+                    metadata: {}
+                    data:
+                      title: Air Quality
+                      message: >-
+                        Humidity is high — turning on the dehumidifier (day
+                        mode)
+                  - action: button.press
+                    metadata: {}
+                    data: {}
+                    target:
+                      entity_id: button.dehumidifier_power
+                  - delay:
+                      hours: 0
+                      minutes: 0
+                      seconds: 2
+                      milliseconds: 0
+                  - device_id: edd72502a149323f04fb5c083d23c791
+                    domain: select
+                    entity_id: 599fce9671e9219d2876edbf204499cf
+                    type: select_option
+                    option: Default
+              - conditions:
+                  - condition: time
+                    after: "23:00:00"
+                    before: "07:00:00"
+                sequence:
+                  - action: notify.mobile_app_dave_s_s23_mobile
+                    metadata: {}
+                    data:
+                      title: Air Quality
+                      message: >-
+                        Humidity is high — turning on the dehumidifier (night
+                        mode)
+                  - action: button.press
+                    metadata: {}
+                    data: {}
+                    target:
+                      entity_id: button.dehumidifier_power
+                  - delay:
+                      hours: 0
+                      minutes: 0
+                      seconds: 2
+                      milliseconds: 0
+                  - device_id: edd72502a149323f04fb5c083d23c791
+                    domain: select
+                    entity_id: 599fce9671e9219d2876edbf204499cf
+                    type: select_option
+                    option: Night
+mode: single
+```
+
 ```
