@@ -155,12 +155,15 @@ mode: single
 
 ### Co2 Sensor Automation (draft)
 ```yaml
-alias: Air Quality
-description: ""
+alias: CO2 Air Quality Alert
+description: >-
+Sets the Everything Presence Lite RGB LED green when CO₂ is below 600 ppm and red when above 600 ppm.
+Sends a notification to open the window if CO₂ stays high for 5 minutes while the room is occupied between 08:00 and 22:00.
+
 triggers:
   - trigger: numeric_state
     entity_id:
-      - sensor.apollo_air_1_4bad34_co2
+      - sensor.everything_presence_lite_1_co2
     below: 600
     id: "1"
     for:
@@ -169,19 +172,13 @@ triggers:
       seconds: 0
   - trigger: numeric_state
     entity_id:
-      - sensor.apollo_air_1_4bad34_co2
+      - sensor.everything_presence_lite_1_co2
     above: 600
     id: "2"
     for:
       hours: 0
       minutes: 5
       seconds: 0
-  - trigger: time
-    at: "08:00:00"
-    id: "20"
-  - trigger: time
-    at: "22:00:00"
-    id: "21"
 conditions: []
 actions:
   - choose:
@@ -215,122 +212,25 @@ actions:
               brightness_pct: 100
             target:
               entity_id: light.everything_presence_lite_1_epl_rgb_led
-          - action: notify.mobile_app_dave_s_s23_mobile
-            metadata: {}
-            data:
-              title: Air Quality
-              message: CO₂ is rising — turn the fan on.
-          - action: notify.alexa_media_dave_s_echo_spot
-            metadata: {}
-            data:
-              message: Dave,  the CO2 levels are rising. Turn on the fan
-          - action: light.turn_on
-            metadata: {}
-            data:
-              rgb_color:
-                - 255
-                - 255
-                - 0
-            target:
-              entity_id:
-                - light.apollo_air_1_4bad34_rgb_light
-                - light.wled_topshelf_4
-                - light.wled_bottom_shelf_5
-      - conditions:
-          - condition: trigger
-            id:
-              - "2"
-          - condition:
-              - condition: time
-                after: "08:00:00"
-                before: "22:00:00"
-        sequence:
-          - action: notify.mobile_app_dave_s_s23_mobile
-            metadata: {}
-            data:
-              title: Air Quality
-              message: CO₂ is high — open a window and get some fresh air
-          - action: notify.alexa_media_dave_s_echo_spot
-            metadata: {}
-            data:
-              message: >-
-                Dave, the air quality is very poor. Open the window to let style
-                fresh air in. 
-          - action: light.turn_on
-            metadata: {}
-            data:
-              rgb_color:
-                - 255
-                - 0
-                - 0
-            target:
-              entity_id:
-                - light.apollo_air_1_4bad34_rgb_light
-                - light.wled_topshelf_4
-                - light.wled_bottom_shelf_5
-      - conditions:
-          - condition: trigger
-            id:
-              - "4"
-          - condition: state
-            entity_id: binary_sensor.dehumidifier_state
-            state: "off"
-        sequence:
           - choose:
               - conditions:
+                  - condition: state
+                    entity_id: binary_sensor.everything_presence_lite_2_occupancy
+                    state:
+                      - "on"
                   - condition: time
-                    after: "07:00:00"
-                    before: "23:00:00"
+                    after: "08:00:00"
+                    before: "22:00:00"
                 sequence:
                   - action: notify.mobile_app_dave_s_s23_mobile
                     metadata: {}
                     data:
                       title: Air Quality
-                      message: >-
-                        Humidity is high — turning on the dehumidifier (day
-                        mode)
-                  - action: button.press
-                    metadata: {}
-                    data: {}
-                    target:
-                      entity_id: button.dehumidifier_power
-                  - delay:
-                      hours: 0
-                      minutes: 0
-                      seconds: 2
-                      milliseconds: 0
-                  - device_id: edd72502a149323f04fb5c083d23c791
-                    domain: select
-                    entity_id: 599fce9671e9219d2876edbf204499cf
-                    type: select_option
-                    option: Default
-              - conditions:
-                  - condition: time
-                    after: "23:00:00"
-                    before: "07:00:00"
-                sequence:
-                  - action: notify.mobile_app_dave_s_s23_mobile
+                      message: CO₂ is rising — open the window.
+                  - action: notify.alexa_media_dave_s_echo_spot
                     metadata: {}
                     data:
-                      title: Air Quality
-                      message: >-
-                        Humidity is high — turning on the dehumidifier (night
-                        mode)
-                  - action: button.press
-                    metadata: {}
-                    data: {}
-                    target:
-                      entity_id: button.dehumidifier_power
-                  - delay:
-                      hours: 0
-                      minutes: 0
-                      seconds: 2
-                      milliseconds: 0
-                  - device_id: edd72502a149323f04fb5c083d23c791
-                    domain: select
-                    entity_id: 599fce9671e9219d2876edbf204499cf
-                    type: select_option
-                    option: Night
+                      message: Dave,  the CO2 levels are rising. Open the window
 mode: single
 ```
 
