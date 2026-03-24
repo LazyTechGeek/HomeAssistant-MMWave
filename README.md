@@ -290,14 +290,12 @@ triggers:
   - trigger: state
     entity_id:
       - binary_sensor.YOUR_ZONE_1_OCCUPANCY
-    to:
-      - "on"
+    to: "on"
     id: "1"
   - trigger: state
     entity_id:
       - binary_sensor.YOUR_ZONE_2_OCCUPANCY
-    to:
-      - "on"
+    to: "on"
     id: "2"
 
 #######################################
@@ -307,8 +305,7 @@ triggers:
 conditions:
   - condition: state
     entity_id: input_boolean.cinema_mode
-    state:
-      - "on"
+    state: "on"
 
 
 actions:
@@ -321,8 +318,7 @@ actions:
 
       - conditions:
           - condition: trigger
-            id:
-              - "1"
+            id: "1"
         sequence:
           - action: switch.turn_off
             metadata: {}
@@ -337,8 +333,7 @@ actions:
       
       - conditions:
           - condition: trigger
-            id:
-              - "2"
+            id: "2"
         sequence:
           - action: switch.turn_on
             metadata: {}
