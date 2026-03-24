@@ -104,6 +104,127 @@ actions:
 mode: single
 ```
 
+### Cinema Mode - Toggle (with comments)
+```yaml
+alias: Cinema Mode – Toggle
+description: >
+  Toggles Cinema Mode using a vibration sensor.
+  When enabled, it closes curtains, turns off lights and switches, and reduces occupancy delays.
+  When disabled, it turns selected switches back on and resets occupancy delays to normal.
+triggers:
+  - entity_id: binary_sensor.YOUR_VIBRATION_SENSOR
+    to: "on"
+    trigger: state
+actions:
+  - choose:
+
+######################
+# ENABLE CINEMA MODE #
+######################
+# Triggered when Cinema Mode is currently OFF
+
+      - conditions:
+          - condition: state
+            entity_id: input_boolean.cinema_mode
+            state: "off"
+        sequence:
+
+          # Turn Cinema Mode ON
+          - target:
+              entity_id: input_boolean.cinema_mode
+            action: input_boolean.turn_on
+
+          # Close curtains for a darker environment
+          - target:
+              entity_id:
+                - cover.YOUR_LOUNGE_CURTAINS
+                - cover.YOUR_DINING_CURTAINS
+            action: cover.close_cover
+            data: {}
+
+          # Turn off lights and switches
+          - target:
+              entity_id:
+                - light.YOUR_LIGHT
+            action: light.turn_off
+            data: {}
+          - action: switch.turn_off
+            metadata: {}
+            target:
+              entity_id:
+                - switch.YOUR_KITCHEN_SWITCH
+                - switch.YOUR_OTHER_SWITCH
+            data: {}
+         
+          # Reduce occupancy delay for faster light response
+          - action: number.set_value
+            target:
+              entity_id:
+                - >-
+                  number.YOUR_ZONE_1_OCCUPANCY_DELAY
+                - number.YOUR_ZONE_2_OCCUPANCY_DELAY
+            data:
+              value: "3"
+
+          # Notifications (optional)
+          - action: notify.notify
+            metadata: {}
+            data:
+              message: Cinema Mode (enabled)
+
+          - action: notify.alexa_media_YOUR_ALEXA_DEVICE
+            metadata: {}
+            data:
+              message: Cinema mode enabled
+
+#######################
+# DISABLE CINEMA MODE #
+#######################
+     
+      - conditions:
+          - condition: state
+            entity_id: input_boolean.cinema_mode
+            state: "on"
+        sequence:
+
+          # Turn Cinema Mode OFF
+          - target:
+              entity_id: input_boolean.cinema_mode
+            action: input_boolean.turn_off
+
+          # Restore normal lighting
+          - action: switch.turn_on
+            metadata: {}
+            target:
+              entity_id:
+                - switch.YOUR_KITCHEN_SWITCH
+                - switch.YOUR_LOUNGE_SWITCH
+            data: {}
+
+          # Restore normal occupancy delay
+          - action: number.set_value
+            target:
+              entity_id:
+                - >-
+                  number.YOUR_ZONE_1_OCCUPANCY_DELAY
+                - number.YOUR_ZONE_2_OCCUPANCY_DELAY
+            data:
+              value: "15"
+
+          # Notifications (optional)
+          - action: notify.notify
+            metadata: {}
+            data:
+              message: Cinema Mode (disabled)
+     
+          - action: notify.alexa_media_YOUR_ALEXA_DEVICE
+            metadata: {}
+            data:
+              message: Cinema mode disabled
+mode: single
+```
+
+
 ### Cinema Mode – Presence Lighting
 ```yaml
 alias: Cinema Mode – Presence Lighting
