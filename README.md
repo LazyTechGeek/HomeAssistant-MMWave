@@ -148,6 +148,7 @@ actions:
                 - light.YOUR_LIGHT
             action: light.turn_off
             data: {}
+
           - action: switch.turn_off
             metadata: {}
             target:
