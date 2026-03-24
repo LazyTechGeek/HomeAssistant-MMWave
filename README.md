@@ -275,6 +275,79 @@ actions:
 mode: single
 ```
 
+### Cinema Mode – Presence Lighting (with comments)
+```yaml
+alias: Cinema Mode – Presence Lighting
+description: >-
+  Controls lighting based on presence zones while Cinema Mode is active.
+  Entering Zone 1 turns the light off, and entering Zone 2 turns it on.
+triggers:
+
+#################
+# ZONE TRIGGERS #
+#################
+
+  - trigger: state
+    entity_id:
+      - binary_sensor.YOUR_ZONE_1_OCCUPANCY
+    to:
+      - "on"
+    id: "1"
+  - trigger: state
+    entity_id:
+      - binary_sensor.YOUR_ZONE_2_OCCUPANCY
+    to:
+      - "on"
+    id: "2"
+
+#######################################
+# ONLY RUN WHEN CINEMA MODE IS ACTIVE #
+#######################################
+
+conditions:
+  - condition: state
+    entity_id: input_boolean.cinema_mode
+    state:
+      - "on"
+
+
+actions:
+  - choose:
+
+###########################
+# IF ZONE 1 IS TRIGGERED  #
+# (Watching Area)         #
+###########################
+
+      - conditions:
+          - condition: trigger
+            id:
+              - "1"
+        sequence:
+          - action: switch.turn_off
+            metadata: {}
+            target:
+              entity_id: switch.YOUR_KITCHEN_SWITCH
+            data: {}
+
+##########################
+# IF ZONE 2 IS TRIGGERED #
+# (Movement Area)        #
+##########################   
+      
+      - conditions:
+          - condition: trigger
+            id:
+              - "2"
+        sequence:
+          - action: switch.turn_on
+            metadata: {}
+            target:
+              entity_id: switch.YOUR_KITCHEN_SWITCH
+            data: {}
+mode: single
+```
+
 ### Co2 Sensor Automation (draft)
 ```yaml
 alias: CO2 Air Quality Alert
