@@ -3,7 +3,7 @@
 In this video, we take a deep dive into MMWave with Home Assistant for room-level presence detection.
 
 ## Watch the video here:
-▶️ [Home Assistant + MMWave (Room-Level Presence)](YOUTUBE-LINK)
+▶️ [Home Assistant + MMWave (Room-Level Presence)](https://youtu.be/bNUvHnP21iY)
 
 ## 📖 Written Articles
 - **[Download the BLE settings slides used in this video](https://github.com/LazyTechGeek/HomeAssistant-Bermuda/blob/main/Bermuda_BLE_Settings-Video-Slides.pdf)**
@@ -13,7 +13,7 @@ In this video, we take a deep dive into MMWave with Home Assistant for room-leve
 
 
 ## 🔗 Links to Everything Presence Lite Mount
-- **[Everything Presense Lite 3D print mount](ENTER-URL)**
+- **[Everything Presense Lite 3D print mount](https://github.com/LazyTechGeek/HomeAssistant-MMWave/blob/main/epl_mount.3mf)**
 
 ## Automations used in this video
 
