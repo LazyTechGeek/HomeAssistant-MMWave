@@ -6,7 +6,7 @@ In this video, we take a deep dive into MMWave with Home Assistant for room-leve
 ▶️ [Home Assistant + mmWave (Room-Level Presence & Automations) – Everything Presence Lite](https://youtu.be/bNUvHnP21iY)
 
 ## 📖 Written Articles
-- **[Download the BLE settings slides used in this video](https://github.com/LazyTechGeek/HomeAssistant-Bermuda/blob/main/Bermuda_BLE_Settings-Video-Slides.pdf)**
+- **[Offical Every Presence Lite Documentation](https://docs.everythingsmart.io/s/products/doc/getting-started-gLYWWonJV2)**
 
 ## 🔗 Links to Everything Presence Lite
 - **[Everything Presense Lite](ENTER-URL)**
