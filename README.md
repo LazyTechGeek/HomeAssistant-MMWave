@@ -1,4 +1,4 @@
-# Home Assistant + MMWave
+# Home Assistant + mmWave
 
 In this video, we take a deep dive into MMWave with Home Assistant for room-level presence detection.
 
@@ -6,14 +6,14 @@ In this video, we take a deep dive into MMWave with Home Assistant for room-leve
 ▶️ [Home Assistant + mmWave (Room-Level Presence & Automations) – Everything Presence Lite](https://youtu.be/bNUvHnP21iY)
 
 ## 📖 Written Articles
-- **[Offical Every Presence Lite Documentation](https://docs.everythingsmart.io/s/products/doc/getting-started-gLYWWonJV2)**
+- **[Official Every Presence Lite Documentation](https://docs.everythingsmart.io/s/products/doc/getting-started-gLYWWonJV2)**
 
 ## 🔗 Links to Everything Presence Lite
 - **[Everything Presense Lite](ENTER-URL)**
 
 
 ## 🔗 Links to Everything Presence Lite Mount
-- **[Everything Presense Lite 3D print mount](https://github.com/LazyTechGeek/HomeAssistant-MMWave/blob/main/epl_mount.3mf)**
+- **[Everything Presence Lite 3D print mount](https://github.com/LazyTechGeek/HomeAssistant-MMWave/blob/main/epl_mount.3mf)**
 
 ## Automations used in this video
 
