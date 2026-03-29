@@ -11,6 +11,10 @@ In this video, we take a deep dive into MMWave with Home Assistant for room-leve
 ## 🔗 Links to Everything Presence Lite
 - **[Everything Presense Lite](ENTER-URL)**
 
+
+## 🔗 Links to Everything Presence Lite Mount
+- **[Everything Presense Lite 3D print mount](ENTER-URL)**
+
 ## Automations used in this video
 
 **Below are complete working ESPHome Bluetooth proxy configurations for each board.**
