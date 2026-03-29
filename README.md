@@ -5,15 +5,17 @@ In this video, we take a deep dive into MMWave with Home Assistant for room-leve
 ## Watch the video here:
 ▶️ [Home Assistant + mmWave (Room-Level Presence & Automations) – Everything Presence Lite](https://youtu.be/bNUvHnP21iY)
 
-## 📖 Written Articles
+## 📖 Documentation
 - **[Official Every Presence Lite Documentation](https://docs.everythingsmart.io/s/products/doc/getting-started-gLYWWonJV2)**
 
 ## 🔗 Links to Everything Presence Lite
 - **[Everything Presense Lite](ENTER-URL)**
 
 
-## 🔗 Links to Everything Presence Lite Mount
+## 🔗 3D Printed Mount
 - **[Everything Presence Lite 3D print mount](https://github.com/LazyTechGeek/HomeAssistant-MMWave/blob/main/epl_mount.3mf)**
+
+This mount allows you to reposition the sensor using Velcro, without losing calibration or zone alignment.
 
 ## Automations used in this video
 
