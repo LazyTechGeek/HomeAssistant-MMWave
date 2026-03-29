@@ -207,28 +207,3 @@ actions:
             data: {}
 mode: single
 ```
-
-: 100
-            target:
-              entity_id: light.everything_presence_lite_1_epl_rgb_led
-          - choose:
-              - conditions:
-                  - condition: state
-                    entity_id: binary_sensor.everything_presence_lite_2_occupancy
-                    state:
-                      - "on"
-                  - condition: time
-                    after: "08:00:00"
-                    before: "22:00:00"
-                sequence:
-                  - action: notify.mobile_app_dave_s_s23_mobile
-                    metadata: {}
-                    data:
-                      title: Air Quality
-                      message: CO₂ is rising — open the window.
-                  - action: notify.alexa_media_dave_s_echo_spot
-                    metadata: {}
-                    data:
-                      message: Dave,  the CO2 levels are rising. Open the window
-mode: single
-```
