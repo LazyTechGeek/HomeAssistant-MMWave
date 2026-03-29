@@ -9,7 +9,7 @@ In this video, we take a deep dive into MMWave with Home Assistant for room-leve
 - **[Official Every Presence Lite Documentation](https://docs.everythingsmart.io/s/products/doc/getting-started-gLYWWonJV2)**
 
 ## 🔗 Links to Everything Presence Lite
-- **[Everything Presense Lite](ENTER-URL)**
+- **[Everything Presense Lite](https://shop.everythingsmart.io/products/everything-presence-lite?srsltid=AfmBOoq66PhPZbI7PAFx0u_JaenQnDzx6FaZshkF2W-IjATUrEgS1ap9)**
 
 
 ## 🔗 3D Printed Mount
