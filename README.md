@@ -207,3 +207,113 @@ actions:
             data: {}
 mode: single
 ```
+
+### CO2 Air Quality - LED & Alerts
+🎬 This will be featured in an upcoming video — link coming soon.
+```yaml
+alias: CO2 Air Quality - LED & Alerts
+description: Updates LED colour from CO₂ levels and sends alerts if high and occupied.
+mode: single
+
+#################
+#   TRIGGERS    #
+#################
+
+triggers:
+  # Trigger 1: CO₂ has been GOOD (below 700) for 10 minutes
+  - trigger: numeric_state
+    entity_id:
+      - sensor.YOUR_CO2_SENSOR # CHANGE THIS
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    below: 700
+    id: "1"
+
+  # Trigger 2: CO₂ has been HIGH (above 700) for 10 minutes
+  - trigger: numeric_state
+    entity_id:
+      - sensor.YOUR_CO2_SENSOR # CHANGE THIS
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    above: 700
+    id: "2"
+
+conditions: []
+
+#################
+#    ACTIONS    #
+#################
+
+actions:
+  - choose:
+
+      ############################
+      # GOOD AIR QUALITY (GREEN) #
+      ############################
+      - conditions:
+          - condition: trigger
+            id:
+              - "1" # Trigger 1 = CO₂ below 700
+        sequence:
+          - action: light.turn_on
+            metadata: {}
+            target:
+              entity_id: light.YOUR_CUSTOM_RGB_LED  # CHANGE THIS
+            data:
+              rgb_color:
+                - 0
+                - 255
+                - 0
+              brightness_pct: 100
+
+      ###########################
+      # BAD AIR QUALITY (RED)   #
+      ###########################
+      - conditions:
+          - condition: trigger
+            id:
+              - "2" # Trigger 2 = CO₂ above 700
+        sequence:
+          - action: light.turn_on
+            metadata: {}
+            target:
+              entity_id: light.YOUR_CUSTOM_RGB_LED  # CHANGE THIS
+            data:
+              rgb_color:
+                - 255
+                - 0
+                - 0
+              brightness_pct: 100
+
+          ########################################
+          # OPTIONAL ALERTS (ONLY IF OCCUPIED)   #
+          ########################################
+
+          # Only send alerts if presence is detected
+          - choose:
+              - conditions:
+                  - condition: state
+                    entity_id: binary_sensor.YOUR_PRESENCE_SENSOR # CHANGE THIS
+                    state:
+                      - "on"
+                sequence:
+
+                  # Alexa announcement (optional)
+                  - action: notify.alexa_media_YOUR_ALEXA_DEVICE # CHANGE THIS
+                    metadata: {}
+                    data:
+                      message: >-
+                        Dave, the air quality is very poor. Open the window to
+                        let some fresh air in.
+
+                  # Mobile notification (optional)
+                  - action: notify.notify
+                    metadata: {}
+                    data:
+                      title: Air Quality
+                      message: CO₂ is high — open a window and get some fresh air
+```
