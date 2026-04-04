@@ -294,12 +294,18 @@ actions:
           ########################################
 
           # Only send alerts if presence is detected
+          # and the time is between 8am and 10pm
+
           - choose:
               - conditions:
                   - condition: state
                     entity_id: binary_sensor.YOUR_PRESENCE_SENSOR_OCCUPANCY # CHANGE THIS
                     state:
                       - "on"
+                  - condition: time
+                    after: "08:00:00"
+                    before: "22:00:00"
+
                 sequence:
 
                   # Alexa announcement (optional)
