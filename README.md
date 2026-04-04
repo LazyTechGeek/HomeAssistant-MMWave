@@ -297,7 +297,7 @@ actions:
           - choose:
               - conditions:
                   - condition: state
-                    entity_id: binary_sensor.YOUR_PRESENCE_SENSOR # CHANGE THIS
+                    entity_id: binary_sensor.YOUR_PRESENCE_SENSOR_OCCUPANCY # CHANGE THIS
                     state:
                       - "on"
                 sequence:
