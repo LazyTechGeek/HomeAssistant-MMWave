@@ -1,4 +1,4 @@
-# Home Assistant + mmWave
+# Home Assistant + mmWave - Part 1
 
 In this video, we take a deep dive into MMWave with Home Assistant for room-level presence detection.
 
@@ -206,6 +206,85 @@ actions:
               entity_id: switch.YOUR_KITCHEN_SWITCH
             data: {}
 mode: single
+```
+
+# Home Assistant + Everything Presence Lite (CO₂ Air Quality Alerts) - Part 2
+
+Turn your Everything Presence Lite into a smart air quality monitor. In this video, we add the optional CO₂ module, hook up a custom RGB LED, and build a Home Assistant automation that visually shows air quality and alerts you when it’s time to open a window.
+
+▶️ [Watch the video here](https://youtu.be/Uzqvpj5Va3w)  
+
+### ⚙️ configuration files used in this video
+
+## 🔌 How to Wire the RGB LED
+
+<img src="https://github.com/LazyTechGeek/HomeAssistant-MMWave/blob/main/CO2-Air-Quality/epl-rgb-led-wiring.png" width="150">
+
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/LazyTechGeek/HomeAssistant-MMWave/blob/main/CO2-Air-Quality/epl-rgb-led-placement.png" width="300">
+    </td>
+    <td>
+      <img src="https://github.com/LazyTechGeek/HomeAssistant-MMWave/blob/main/CO2-Air-Quality/epl-rgb-led-installed.png" width="300">
+    </td>
+  </tr>
+</table>
+
+## ⚙️ ESPHome Configuration – RGB LED (GPIO19)
+
+⚠️ **Important – ESPHome Packages**
+
+If you are using ESPHome packages, make sure this section matches your setup.
+
+If the CO₂ package is missing or overwritten, your CO₂ sensor will stop working.
+
+🎥 [Watch explanation at 10:16](https://youtu.be/Uzqvpj5Va3w?t=616)
+
+```yaml
+packages:
+  EverythingSmartTechnology.Everything Presence Lite: github://everythingsmarthome/everything-presence-lite/everything-presence-lite-ha-co2.yaml@main
+```
+
+### ⚙️ Add RGB LED to ESPHome
+
+Add the following to your ESPHome configuration:
+```yaml
+light:
+  - platform: esp32_rmt_led_strip
+    chipset: ws2812
+    rgb_order: GRB
+    pin: GPIO19
+    num_leds: 1
+    name: "EPL RGB LED"
+```
+
+### Full ESPHome Example (with RGB LED)
+```yaml
+substitutions:
+  name: everything-presence-lite
+  friendly_name: Everything Presence Lite
+packages:
+  EverythingSmartTechnology.Everything Presence Lite: github://everythingsmarthome/everything-presence-lite/everything-presence-lite-ha-co2.yaml@main # Ensure this matches your setup
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  friendly_name: ${friendly_name}
+api:
+  encryption:
+    key: YOUR_ENCRYPTION_KEY
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+light:
+  - platform: esp32_rmt_led_strip
+    chipset: ws2812
+    rgb_order: GRB
+    pin: GPIO19
+    num_leds: 1
+    name: "EPL RGB LED"
 ```
 
 ### CO2 Air Quality - LED & Alerts
