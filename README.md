@@ -288,7 +288,6 @@ light:
 ```
 
 ### CO2 Air Quality - LED & Alerts
-🎬 This will be featured in an upcoming video — link coming soon.
 ```yaml
 alias: CO2 Air Quality - LED & Alerts
 description: Updates LED colour from CO₂ levels and sends alerts if high and occupied.
